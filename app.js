@@ -1,28 +1,13 @@
-//express
+
 const express = require('express');
 const app = express();
-
-//cookie
-//const cookieParser = require('cookie-parser');
-
-//Enviroment Variables
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
-
-//DB Connection
 const mongoose = require('mongoose');
-
-
-//Routes
 const newUser = require('./app/routes.users')
-
-//urlencode captura los datos del formulario
 app.use(express.urlencoded({extended:true}));
-
-//Lenguaje for comunication
 app.use(express.json())
-
-//cookie
-//app.use(cookieParser());
+app.use(cookieParser());
 
 async function serverStart() {
 

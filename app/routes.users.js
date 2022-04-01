@@ -21,7 +21,6 @@ module.exports = (app) => {
         try{
             let result = await users.getUsers();
             
-            console.log("Resultado consulta de usuarios usuario ------> ", result);
             res.json(result);
     
         }catch(error){
@@ -31,15 +30,13 @@ module.exports = (app) => {
     });    
 
     app.post('/login', usersMidd.validateUserLogin, async (req, res) =>{
-        console.log("dentro del post de login", req.body);
-        try {
+    try {
         let result = await users.userValidate(req.body);
         console.log("Resultado en la vista de login --> ", result);
 
         if(result != 'El usuario no existe'){
             let id = `${result.userName}` ;
 
-        console.log(`Para el token ====> ${id}`)
         const token = jwt.sign({user:id}, process.env.SECRET_KEY, {
             //expiresIn: process.env.EXP_TOKEN
         });

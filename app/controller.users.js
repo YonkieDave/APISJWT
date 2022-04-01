@@ -15,7 +15,6 @@ module.exports.newUser = async (newUser) => {
             pass: newUser.pass
         }
 
-        console.log('modelo a insertar -->  ', model);
         let register = await new dbUsers(model).save();
         return register;
 
@@ -31,7 +30,6 @@ module.exports.getUsers = async () =>{
             return res;
         }).clone();
 
-        console.log("Este es el resultado a devolver ============> ",  result);
         return await result;
 
     }catch(error){
@@ -58,10 +56,7 @@ module.exports.userValidate = async (usr) => {
 }
 
     module.exports.fieldsValidate = (fields) =>{
-    //let message = "El campo no contiene un formato correcto --> ";
-
-    let expreg = new RegExp(/[a-z0-9_\-]+(\.[_a-z0-9\-]+)*@([_a-z0-9\-]+\.)+([a-z]{2}|aero|asia|arpa|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|xxx)/);
-  
+    
     try {
 
     
@@ -69,10 +64,7 @@ module.exports.userValidate = async (usr) => {
     fields.lastname != '' &&
     fields.phone != '' &&
     fields.userName != '' &&
-    fields.pass != ''){
-
-         console.log("Datos minimos informados ___> ", fields.name.length, fields.lastname.length, fields.lastnameM.length )
-         
+    fields.pass != ''){     
 
         if(typeof fields.name != 'string' || (fields.name).length > 40 || !/^[a-zA-Z]+$/i.test(fields.name)){
             return (`El campo no contiene un formato correcto -->  ${fields.name}`) ;

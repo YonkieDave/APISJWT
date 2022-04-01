@@ -4,7 +4,6 @@ const dbUser = require('../app/model.users');
 const userVal = require('../app/controller.users')
 
 module.exports.validateUserLogin = (req, res, next) => {
-    console.log("Datos del usuario ", req.body);
     try {
         if(req.body.id != '' && req.body.pass != ''){
             console.log("con contraseña y password")
@@ -23,7 +22,6 @@ module.exports.validateUserLogin = (req, res, next) => {
     module.exports.userAuth = async (req, res, next) => {
         const tokHeader = req.headers['authorization'];
 
-        console.log("este  es el requ en el middAuth---> ",tokHeader);
         if(typeof tokHeader != 'undefined'){
             try {
                 let session = await promisify(jwt.verify)(tokHeader.split(" ")[1], process.env.SECRET_KEY);
@@ -45,10 +43,8 @@ module.exports.validateUserLogin = (req, res, next) => {
     }
     
     module.exports.addUser = async (req, res, next) =>{
-            console.log("en el midd de registro", req.body.name);
         try{
             let validates = userVal.fieldsValidate(req.body);
-            console.log("Resultado de las validaciones ====> ", validates); 
             if(validates === true){
                 next();
             }else{
